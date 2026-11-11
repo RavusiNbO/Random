@@ -317,7 +317,7 @@ static const struct file_operations rng_fops = {
     .read = rng_read,
     .unlocked_ioctl = rng_ioctl,
     .poll = rng_poll,
-    .llseek = no_llseek,
+    .llseek = noop_llseek,
 };
 
 static struct miscdevice rng_misc = {

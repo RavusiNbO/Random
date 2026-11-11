@@ -1,0 +1,1 @@
+savedcmd_/home/rava/dev/drivers/Random/rngdriver.ko := aarch64-linux-gnu-ld -r -EL  -maarch64elf -z noexecstack --no-warn-rwx-segments --build-id=sha1  -T arch/arm64/module.lds -o /home/rava/dev/drivers/Random/rngdriver.ko /home/rava/dev/drivers/Random/rngdriver.o /home/rava/dev/drivers/Random/rngdriver.mod.o /home/rava/dev/drivers/Random/.module-common.o

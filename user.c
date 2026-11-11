@@ -42,14 +42,14 @@ static void tests(const unsigned char *p, size_t n)
     long double mean = sum / n;
     long double variance = sq / n - mean * mean;
 
-    printf("\\nFrequency: zeros=%llu (%.2Lf%%), ones=%llu (%.2Lf%%)\\n",
+    printf("\nFrequency: zeros=%llu (%.2Lf%%), ones=%llu (%.2Lf%%)\n",
         (unsigned long long)(bits - ones),
         100.0L * (bits - ones) / bits,
         (unsigned long long)ones, 100.0L * ones / bits);
-    printf("Runs: %llu, runs/bit=%.6Lf\\n",
+    printf("Runs: %llu, runs/bit=%.6Lf\n",
         (unsigned long long)runs, (long double)runs / bits);
-    printf("Byte mean=%.4Lf (uniform expectation 127.5)\\n", mean);
-    printf("Byte variance=%.4Lf (uniform expectation about 5461.25)\\n",
+    printf("Byte mean=%.4Lf (uniform expectation 127.5)\n", mean);
+    printf("Byte variance=%.4Lf (uniform expectation about 5461.25)\n",
         variance);
 }
 
@@ -70,7 +70,7 @@ int main(int argc, char **argv)
     fd = open("/dev/rngdriver", O_RDONLY);
     if (fd < 0) { perror("open /dev/rngdriver"); free(buf); return 1; }
 
-    printf("Waiting for keyboard/network events; read may block...\\n");
+    printf("Waiting for keyboard/network events; read may block...\n");
     got = read_full(fd, buf, want);
     if (got <= 0) {
         if (!got) fprintf(stderr, "No data read\\n");
@@ -79,17 +79,17 @@ int main(int argc, char **argv)
 
     printf("Read %d bytes. First bytes: ", got);
     for (i = 0; i < got && i < 32; i++) printf("%02x ", buf[i]);
-    printf("\\n");
-    test9s(buf, (size_t)got);
+    printf("\n");
+    tests(buf, (size_t)got);
 
     if (ioctl(fd, RNG_IOC_GET_STATS, &st) == 0) {
-        printf("\\nDriver counters:\\n");
-        printf(" keyboard events: %llu\\n", (unsigned long long)st.keyboard_events);
-        printf(" network packets: %llu\\n", (unsigned long long)st.network_packets);
-        printf(" dropped events: %llu\\n", (unsigned long long)st.dropped_events);
-        printf(" mixed input bytes: %llu\\n", (unsigned long long)st.mixed_input_bytes);
-        printf(" pool updates: %llu\\n", (unsigned long long)st.pool_updates);
-        printf("NOTE: mixed bytes/events are not entropy-bit estimates.\\n");
+        printf("\nDriver counters:\n");
+        printf(" keyboard events: %llu\n", (unsigned long long)st.keyboard_events);
+        printf(" network packets: %llu\n", (unsigned long long)st.network_packets);
+        printf(" dropped events: %llu\n", (unsigned long long)st.dropped_events);
+        printf(" mixed input bytes: %llu\n", (unsigned long long)st.mixed_input_bytes);
+        printf(" pool updates: %llu\n", (unsigned long long)st.pool_updates);
+        printf("NOTE: mixed bytes/events are not entropy-bit estimates.\n");
     } else perror("ioctl GET_STATS");
 
     close(fd);
