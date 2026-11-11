@@ -92,6 +92,15 @@ int main(int argc, char **argv)
         printf("NOTE: mixed bytes/events are not entropy-bit estimates.\n");
     } else perror("ioctl GET_STATS");
 
+    printf("Resetting entropy pool...\n");
+
+    if (ioctl(fd, RNG_IOC_RESET) < 0) {
+        perror("RNG_IOC_RESET");
+        return 1;
+    }
+
+    printf("Pool reset successfully\n");
+
     close(fd);
     free(buf);
     return 0;
